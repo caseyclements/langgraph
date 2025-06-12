@@ -282,11 +282,13 @@ class BasePostgresStore(Generic[C]):
                 list(keys),  # -> unnest(%s::text[])
                 list(this_refresh_ttls),  # -> unnest(%s::bool[])
                 ns_text,  # -> prefix = %s (for UPDATE)
+                ns_text,  # -> prefix = %s (for UPDATE)
                 ns_text,  # -> prefix = %s (for final SELECT)
             )
             results.append((query, params, namespace, items))
 
         return results
+
 
     def _prepare_batch_PUT_queries(
         self,

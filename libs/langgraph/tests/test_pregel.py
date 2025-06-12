@@ -4687,16 +4687,16 @@ def test_store_injected(
 
     graph = builder.compile(store=the_store, checkpointer=checkpointer)
 
-    # results = graph.batch(
-    #     [{"count": 0}] * M,
-    #     ([{"configurable": {"thread_id": str(uuid.uuid4())}}] * (M - 1))
-    #     + [{"configurable": {"thread_id": thread_1}}],
-    # )
-    # result = results[-1]
-    # assert result == {"count": N + 1}
-    # returned_doc = the_store.get(namespace, doc_id).value
-    # assert returned_doc == {**doc, "from_thread": thread_1, "some_val": 0}
-    # assert len(the_store.search(namespace)) == 1
+    results = graph.batch(
+        [{"count": 0}] * M,
+        ([{"configurable": {"thread_id": str(uuid.uuid4())}}] * (M - 1))
+        + [{"configurable": {"thread_id": thread_1}}],
+    )
+    result = results[-1]
+    assert result == {"count": N + 1}
+    returned_doc = the_store.get(namespace, doc_id).value
+    assert returned_doc == {**doc, "from_thread": thread_1, "some_val": 0}
+    assert len(the_store.search(namespace)) == 1
     # Check results after another turn of the same thread
     result = graph.invoke({"count": 0}, {"configurable": {"thread_id": thread_1}})
     assert result == {"count": (N + 1) * 2}

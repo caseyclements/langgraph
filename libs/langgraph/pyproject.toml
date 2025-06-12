@@ -46,6 +46,8 @@ pyperf = "^2.7.0"
 py-spy = "^0.3.14"
 types-requests = "^2.32.0.20240914"
 pycryptodome = "^3.21.0"
+# TODO - Hack
+pytest-asyncio = "^0.21.1"
 
 [tool.ruff]
 lint.select = [ "E", "F", "I", "TID251" ]
@@ -88,6 +90,7 @@ requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.pytest.ini_options]
+asyncio_mode = "auto"
 # --strict-markers will raise errors on unknown marks.
 # https://docs.pytest.org/en/7.1.x/how-to/mark.html#raising-errors-on-unknown-marks
 #
